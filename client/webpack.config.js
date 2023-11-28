@@ -1,4 +1,4 @@
-const { GenerateSW } = require('workbox-webpack-plugin');
+const {InjectManifest} = require('workbox-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
 const path = require('path');
@@ -22,10 +22,13 @@ module.exports = () => {
     plugins: [
       new HtmlWebpackPlugin({
         template: './index.html',
-        title: 'Mini Project'
+        title: 'Mini Project',
+        favicon: './src/images/logo.png',
       }),
-      
-      new GenerateSW(),
+      new InjectManifest({
+        swSrc: './src-sw.js',
+        swDest: 'service-worker.js',
+      }),
       new WebpackPwaManifest({
         name: 'Mini Project',
         short_name: 'Mini Project',

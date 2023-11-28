@@ -21,7 +21,7 @@ export const postDb = async (name, home, cell, email)  => {
     const todosDb = await openDB('Mini Project', 1);
     const tx = todosDb.transaction('Mini Project', 'readwrite');
     const store = tx.objectStore('Mini Project');
-    const request = store.add({ name: name, home: home_phone, cell: cell_phone, email: email, });
+    const request = store.add({ name: name, home_phone: home, cell_phone: cell, email: email, });
     const result = await request;
     console.log('Data saved to the database', result);
 };
@@ -32,7 +32,7 @@ export const getDb = async () => {
     const todosDb = await openDB('Mini Project', 1);
     const tx = todosDb.transaction('Mini Project', 'readonly');
     const store = tx.objectStore('Mini Project');
-    const request = store.get();
+    const request = store.getAll();
     const result = await request;
     console.log('result.value', result);
     return result;
